@@ -63,7 +63,7 @@ volumePermissions:
 ## Enable authentication
 ## ref: https://docs.mongodb.com/manual/tutorial/enable-authentication/
 #
-usePassword: true
+usePassword: false
 # existingSecret: name-of-existing-secret
 
 ## MongoDB admin password
@@ -115,7 +115,13 @@ clusterDomain: cluster.local
 
 ## Kubernetes service type
 service:
-  annotations: {}
+  name: mongodb1
+  type: ClusterIP
+  externalPort: 27018
+  internalPort: 27017
+  annotations: 
+      fabric8.io/expose: "true"
+      fabric8.io/ingress.annotations: "kubernetes.io/ingress.class: nginx"
   type: ClusterIP
   # clusterIP: None
   port: 27017
